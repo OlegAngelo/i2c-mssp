@@ -80,15 +80,30 @@ unsigned char I2C_Receive(unsigned char ack)
     return temp;
 }
 
-void main (void) {
+/* Master Device*/
+void main(void)
+{
+    TRISB = 0x00; // set all bits in PORTB to output
+    PORTB = 0x00; // all LEDs in PORTB are off
     TRISD = 0xFF; // set all bits in PORTD to input
+
     init_I2C_Master(); // initialize I2C as master
 
-    for(;;) {
+    for(;;)
+    {
         I2C_Start(); // initiate start condition
-        I2C_Send(0x10); // send the slave address + write - 0 / read - 1 (0001 0000)
+        I2C_Send(0x10); // send the slave address + write
         I2C_Send(PORTD); // send 8-bit data frame
         I2C_Stop(); // initiate stop condition
-        delay(200);
+        delay(200); // delay before next operation
+
+        I2C_Start(); // initiate start condition
+        // I2C_RepeatedStart(); // initiate repeated start condition
+        I2C_Send(0x11); // send the slave address + read
+        PORTB = I2C_Receive(0); // read data and not acknowledge (NACK)
+                                // end of read operation
+                                // write received data to PORTB
+        I2C_Stop(); // initiate stop condition
+        delay(200); // delay before next operation
     }
-}
+} 
