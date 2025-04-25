@@ -1,0 +1,23 @@
+# Ignore build output files
+*.as
+*.cmf
+*.cof
+*.d
+*.hex
+*.hxl
+*.p1
+*.pre
+*.sdb
+*.sym
+*.obj
+*.lst
+*.rlf
+
+# Ignore project-specific backups
+Project Backups/
+cpu=16f877a
+funclist
+l.obj
+
+# Ignore workspace/user-specific files
+*.workspace

@@ -74,7 +74,7 @@ unsigned char I2C_Receive(unsigned char ack)
     I2C_Wait(); // wait until all I2C operation are finished
     temp = SSPBUF; // read SSP buffer
     I2C_Wait(); // wait until all I2C operation are finished
-    ACKDT = (ack)?0:1; // set acknowledge (ACK) or not acknowledge (NACK)
+    ACKDT = (ack) ? 0 : 1; // set acknowledge (ACK) or not acknowledge (NACK)
     ACKEN = 1; // enable acknowledge sequence
 
     return temp;
@@ -86,7 +86,7 @@ void main (void) {
 
     for(;;) {
         I2C_Start(); // initiate start condition
-        I2C_Send(0x10); // send the slave address + write
+        I2C_Send(0x10); // send the slave address + write - 0 / read - 1 (0001 0000)
         I2C_Send(PORTD); // send 8-bit data frame
         I2C_Stop(); // initiate stop condition
         delay(200);
